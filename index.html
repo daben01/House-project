@@ -3,103 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airbnb House Rules</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f6d365, #fda085);
-            color: #333;
-            transition: all 0.5s ease-in-out;
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
-        .house {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 18px;
-        }
-        .house:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        .rules-page {
-            display: none;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.95);
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .back-btn {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background: #ff6f61;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .back-btn:hover {
-            background: #e0554a;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <title>Luxury Listings</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <div id="mainPage">
-        <h1>Choose a House to View Rules</h1>
-        <div class="container">
-            <div class="house" onclick="showRules(1)">🏰 Château Jeanne-Mance</div>
-            <div class="house" onclick="showRules(2)">🏡 Château Milton</div>
+    <div class="container">
+        <h1>Your Listings</h1>
+        <div class="listings-grid">
+            <div class="listing" onclick="showDetails('chateau-janne-mance')">
+                <img src="images/chateau-janne-mance.jpg" alt="Chateau Janne-Mance">
+                <h2>Chateau Janne-Mance</h2>
+                <p>Montréal, Québec</p>
+            </div>
+            <div class="listing" onclick="showDetails('chateau-milton')">
+                <img src="images/chateau-milton.jpg" alt="Chateau Milton">
+                <h2>Chateau Milton</h2>
+                <p>Montréal, QC</p>
+            </div>
         </div>
     </div>
-    
-    <div id="rulesPage" class="rules-page">
-        <h2 id="houseTitle"></h2>
-        <p id="houseRules"></p>
-        <button class="back-btn" onclick="goBack()">Back</button>
+
+    <div id="details" class="details hidden">
+        <button class="close-btn" onclick="closeDetails()">&times;</button>
+        <div class="details-content">
+            <h1 id="house-title"></h1>
+            <div class="gallery">
+                <img id="main-image" src="" alt="House Image">
+            </div>
+            <h2>House Rules</h2>
+            <p id="house-rules">No smoking, no pets, quiet hours after 10 PM.</p>
+            <h2>Check-in Information</h2>
+            <p id="checkin-info">Check-in: 3 PM | Check-out: 11 AM</p>
+        </div>
     </div>
-    
-    <script>
-        const houseData = {
-            1: { 
-                title: "🏰 Château Jeanne-Mance",
-                rules: "No parties, no smoking, and keep noise down after 10 PM. Check-in at 3 PM, Check-out at 11 AM. Contact host for any issues."
-            },
-            2: { 
-                title: "🏡 Château Milton",
-                rules: "No pets allowed, respect neighbors, and dispose of trash properly. Check-in at 4 PM, Check-out at 12 PM. Emergency contact available 24/7."
-            }
-        };
-
-        function showRules(houseNumber) {
-            document.getElementById("mainPage").style.display = "none";
-            document.getElementById("rulesPage").style.display = "block";
-            document.getElementById("houseTitle").textContent = houseData[houseNumber].title;
-            document.getElementById("houseRules").textContent = houseData[houseNumber].rules;
-        }
-
-        function goBack() {
-            document.getElementById("rulesPage").style.display = "none";
-            document.getElementById("mainPage").style.display = "block";
-        }
-    </script>
 </body>
 </html>
