@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb House Rules</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .house { padding: 10px; margin: 10px; border: 2px solid #333; cursor: pointer; }
+        .rules { display: none; padding: 10px; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <h1>Choose a House to View Rules</h1>
+    <div class="container">
+        <div class="house" onclick="showRules(1)">House 1</div>
+        <div id="rules1" class="rules">No parties, no smoking, and keep noise down after 10 PM.</div>
+        
+        <div class="house" onclick="showRules(2)">House 2</div>
+        <div id="rules2" class="rules">No pets allowed, respect neighbors, and dispose of trash properly.</div>
+        
+        <div class="house" onclick="showRules(3)">House 3</div>
+        <div id="rules3" class="rules">Check-out by 11 AM, no loud music, and report damages immediately.</div>
+    </div>
+    
+    <script>
+        function showRules(houseNumber) {
+            let rules = document.querySelectorAll(".rules");
+            rules.forEach(rule => rule.style.display = "none");
+            document.getElementById("rules" + houseNumber).style.display = "block";
+        }
+    </script>
+</body>
+</html>
