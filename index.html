@@ -12,6 +12,7 @@
             padding: 20px;
             background: linear-gradient(135deg, #f6d365, #fda085);
             color: #333;
+            transition: all 0.5s ease-in-out;
         }
         h1 {
             font-size: 28px;
@@ -29,18 +30,31 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 18px;
         }
         .house:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
-        .rules {
+        .rules-page {
             display: none;
-            padding: 10px;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.9);
-            margin-top: 5px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
             animation: fadeIn 0.5s ease-in-out;
+        }
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .back-btn:hover {
+            background: #e0554a;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -49,23 +63,42 @@
     </style>
 </head>
 <body>
-    <h1>Choose a House to View Rules</h1>
-    <div class="container">
-        <div class="house" onclick="showRules(1)">🏠 House 1</div>
-        <div id="rules1" class="rules">No parties, no smoking, and keep noise down after 10 PM.</div>
-        
-        <div class="house" onclick="showRules(2)">🏡 House 2</div>
-        <div id="rules2" class="rules">No pets allowed, respect neighbors, and dispose of trash properly.</div>
-        
-        <div class="house" onclick="showRules(3)">🏘 House 3</div>
-        <div id="rules3" class="rules">Check-out by 11 AM, no loud music, and report damages immediately.</div>
+    <div id="mainPage">
+        <h1>Choose a House to View Rules</h1>
+        <div class="container">
+            <div class="house" onclick="showRules(1)">🏰 Château Jeanne-Mance</div>
+            <div class="house" onclick="showRules(2)">🏡 Château Milton</div>
+        </div>
+    </div>
+    
+    <div id="rulesPage" class="rules-page">
+        <h2 id="houseTitle"></h2>
+        <p id="houseRules"></p>
+        <button class="back-btn" onclick="goBack()">Back</button>
     </div>
     
     <script>
+        const houseData = {
+            1: { 
+                title: "🏰 Château Jeanne-Mance",
+                rules: "No parties, no smoking, and keep noise down after 10 PM. Check-in at 3 PM, Check-out at 11 AM. Contact host for any issues."
+            },
+            2: { 
+                title: "🏡 Château Milton",
+                rules: "No pets allowed, respect neighbors, and dispose of trash properly. Check-in at 4 PM, Check-out at 12 PM. Emergency contact available 24/7."
+            }
+        };
+
         function showRules(houseNumber) {
-            let rules = document.querySelectorAll(".rules");
-            rules.forEach(rule => rule.style.display = "none");
-            document.getElementById("rules" + houseNumber).style.display = "block";
+            document.getElementById("mainPage").style.display = "none";
+            document.getElementById("rulesPage").style.display = "block";
+            document.getElementById("houseTitle").textContent = houseData[houseNumber].title;
+            document.getElementById("houseRules").textContent = houseData[houseNumber].rules;
+        }
+
+        function goBack() {
+            document.getElementById("rulesPage").style.display = "none";
+            document.getElementById("mainPage").style.display = "block";
         }
     </script>
 </body>
