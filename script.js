@@ -1,26 +1,38 @@
 function showDetails(houseId) {
     const details = document.getElementById("details");
     const houseTitle = document.getElementById("house-title");
-    const mainImage = document.getElementById("main-image");
+    const gallery = document.querySelector(".gallery");
     const houseRules = document.getElementById("house-rules");
     const checkinInfo = document.getElementById("checkin-info");
 
     const listings = {
         "chateau-plateau": {
-            title: "Heart of downtown Montreal+ parking",
-            image: "images/chateau-plateau.jpg",
+            title: "Heart of downtown Montreal + parking",
+            images: [
+                "images/chateau-plateau.jpg", // First picture (already there)
+                "images/chateau-plateau-living.jpg", // New picture
+                "images/chateau-plateau-kitchen.jpg" // New picture
+            ],
             rules: "No smoking, no pets, quiet hours after 10 PM.",
             checkin: "Check-in: 3 PM | Check-out: 11 AM"
         },
         "paris-house": {
             title: "Step away from downtown Bell Center CITQ#297014",
-            image: "images/paris-house.jpg",
+            images: [
+                "images/paris-house.jpg", // First picture
+                "images/paris-house-bedroom.jpg", // New picture
+                "images/paris-house-dining.jpg" // New picture
+            ],
             rules: "No parties, no loud music, maximum 4 guests.",
             checkin: "Check-in: 4 PM | Check-out: 10 AM"
         },
         "chateau-milton": {
             title: "Victorian house, heart of downtown CITQ#301085",
-            image: "images/chateau-milton.jpg",
+            images: [
+                "images/chateau-milton.jpg", // First picture
+                "images/chateau-milton-exterior.jpg", // New picture
+                "images/chateau-milton-bathroom.jpg" // New picture
+            ],
             rules: "No pets, no outside visitors after 8 PM.",
             checkin: "Check-in: 2 PM | Check-out: 12 PM"
         }
@@ -28,7 +40,19 @@ function showDetails(houseId) {
 
     if (listings[houseId]) {
         houseTitle.textContent = listings[houseId].title;
-        mainImage.src = listings[houseId].image;
+
+        // Clear the gallery
+        gallery.innerHTML = "";
+
+        // Add all pictures to the gallery
+        listings[houseId].images.forEach((imageSrc, index) => {
+            const img = document.createElement("img");
+            img.src = imageSrc;
+            img.alt = listings[houseId].title + " - Image " + (index + 1);
+            img.classList.add("gallery-image");
+            gallery.appendChild(img);
+        });
+
         houseRules.textContent = listings[houseId].rules;
         checkinInfo.textContent = listings[houseId].checkin;
     }
