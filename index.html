@@ -3,70 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airbnb House Rules</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f6d365, #fda085);
-            color: #333;
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-        }
-        .house {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .house:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-        .rules {
-            display: none;
-            padding: 10px;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.9);
-            margin-top: 5px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <title>Luxury Listings</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Choose a House to View Rules</h1>
     <div class="container">
-        <div class="house" onclick="showRules(1)">🏠 House 1</div>
-        <div id="rules1" class="rules">No parties, no smoking, and keep noise down after 10 PM.</div>
-        
-        <div class="house" onclick="showRules(2)">🏡 House 2</div>
-        <div id="rules2" class="rules">No pets allowed, respect neighbors, and dispose of trash properly.</div>
-        
-        <div class="house" onclick="showRules(3)">🏘 House 3</div>
-        <div id="rules3" class="rules">Check-out by 11 AM, no loud music, and report damages immediately.</div>
+        <h1>Your listings</h1>
+        <div class="listings-grid">
+            <div class="listing-card" onclick="showDetails('chateau-plateau')">
+                <span class="status">● Listed</span>
+                <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
+                <div class="listing-info">
+                    <h2>Heart of downtown Montreal+ parking</h2>
+                    <p>Chateau Plateau</p>
+                    <p>Montréal, Québec</p>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('paris-house')">
+                <span class="status">● Listed</span>
+                <img src="images/paris-house.jpg" alt="Paris House">
+                <div class="listing-info">
+                    <h2>Step away from downtown Bell Center CITQ#297014</h2>
+                    <p>Paris House</p>
+                    <p>Montréal, Québec</p>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('chateau-milton')">
+                <span class="status">● Listed</span>
+                <img src="images/chateau-milton.jpg" alt="Chateau Milton">
+                <div class="listing-info">
+                    <h2>Victorian house, heart of downtown CITQ#301085</h2>
+                    <p>Chateau Milton</p>
+                    <p>Montréal, QC</p>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <script>
-        function showRules(houseNumber) {
-            let rules = document.querySelectorAll(".rules");
-            rules.forEach(rule => rule.style.display = "none");
-            document.getElementById("rules" + houseNumber).style.display = "block";
-        }
-    </script>
+
+    <div id="details" class="details hidden">
+        <button class="close-btn" onclick="closeDetails()">&times;</button>
+        <div class="details-content">
+            <h1 id="house-title"></h1>
+            <div class="gallery">
+                <img id="main-image" src="" alt="House Image">
+            </div>
+            <h2>House Rules</h2>
+            <p id="house-rules">No smoking, no pets, quiet hours after 10 PM.</p>
+            <h2>Check-in Information</h2>
+            <p id="checkin-info">Check-in: 3 PM | Check-out: 11 AM</p>
+        </div>
+    </div>
 </body>
 </html>
