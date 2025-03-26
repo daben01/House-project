@@ -38,3 +38,15 @@
 .gallery-btn:hover {
     background: #666;
 }
+@media (max-width: 600px) {
+    .gallery-image {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+
+    .gallery-btn {
+        padding: 5px;
+        font-size: 14px;
+    }
+}
