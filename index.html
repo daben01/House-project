@@ -9,25 +9,24 @@
 </head>
 <body>
     <div class="container" id="home-view">
-        <h1>Your listings</h1>
         <div class="listings-grid">
             <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
                 <span class="status">● Listed</span>
-                <img src="images/chateau-plateau.jpg" alt="Exterior view of Chateau Plateau">
+                <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
                 <div class="listing-info">
                     <h2>Chateau Plateau</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('paris-house')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('paris-house')">
                 <span class="status">● Listed</span>
-                <img src="images/paris-house.jpg" alt="Exterior view of Paris House">
+                <img src="images/paris-house.jpg" alt="Paris House">
                 <div class="listing-info">
                     <h2>Paris House</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('chateau-milton')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-milton')">
                 <span class="status">● Listed</span>
-                <img src="images/chateau-milton.jpg" alt="Exterior view of Chateau Milton">
+                <img src="images/chateau-milton.jpg" alt="Chateau Milton">
                 <div class="listing-info">
                     <h2>Chateau Milton</h2>
                 </div>
@@ -39,32 +38,23 @@
         <button class="back-btn" onclick="goBack()" aria-label="Back to listings">← Back</button>
         <div class="details-content">
             <h1 id="house-title"></h1>
-            <p class="house-description"></p>
-            <p class="house-location"></p>
-            <p class="house-citq"></p>
             <div class="gallery">
                 <!-- Pictures will be added dynamically by script.js -->
             </div>
-            <h2>Instructions</h2>
             <div class="instructions" aria-live="polite">
-                <h3>Booking Confirmation</h3>
-                <p id="booking-confirmation">[Booking confirmation text will be added later]</p>
-                <h3>Check-in Day</h3>
-                <p id="checkin-day">[Check-in day text will be added later]</p>
-                <h3>House Rules</h3>
-                <p id="house-rules">[House rules text will be added later]</p>
-                <h3>Property Access</h3>
-                <p id="property-access">[Property access text will be added later]</p>
+                <p id="booking-confirmation"></p>
+                <p id="checkin-day"></p>
+                <p id="house-rules"></p>
+                <p id="property-access"></p>
             </div>
         </div>
     </div>
 
     <div id="fullscreen" class="fullscreen hidden">
-        <button class="close-btn" onclick="closeFullscreen()" aria-label="Close fullscreen modal">×</button>
+        <button class="close-btn" onclick="closeFullscreen()" aria-label="Close fullscreen image">×</button>
         <div class="fullscreen-content">
             <button class="fullscreen-btn prev-btn" onclick="changeFullscreenImage(-1)" aria-label="Previous image">◄</button>
             <img id="fullscreen-image" class="fullscreen-image" src="" alt="">
-            <p id="fullscreen-caption" class="fullscreen-caption"></p>
             <button class="fullscreen-btn next-btn" onclick="changeFullscreenImage(1)" aria-label="Next image">►</button>
         </div>
     </div>
