@@ -1,3 +1,222 @@
+I’m glad to hear everything is working correctly now! I’ll address your new requests by modifying the existing code and adding new features. Here’s how I’ll handle each change:
+
+Make Houses Appear Bigger Based on Monitor Size:
+Adjust the .listing-card size dynamically using relative units (e.g., vw for width and vh for height) while ensuring all houses remain side by side on one page without scrolling. I’ll set a minimum and maximum size to maintain readability and prevent overflow on smaller or larger screens.
+Add a Homepage with DNS and Botting/Hacking Tools Protection:
+Introduce a new homepage (#landing-view) that appears first, overlaying the current #home-view. I’ll simulate basic protection by adding a simple client-side check (e.g., a hardcoded access code or name validation), though real DNS and bot protection would require server-side tools (e.g., Cloudflare, CAPTCHA), which I can’t fully implement here due to the static nature of GitHub Pages. I’ll provide guidance on external tools for proper security.
+Require Full Name Input on Homepage:
+Add an input field on the landing page where guests must type their full name. I’ll implement a basic validation (e.g., ensuring at least two words with a minimum length) before allowing access to #home-view.
+Below are the updated files with these changes, followed by compilation and testing details.
+
+Updated Code
+index.html
+html
+
+Preview
+
+Collapse
+
+Wrap
+
+Copy
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Listings</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="landing" id="landing-view">
+        <div class="landing-content">
+            <h1>Welcome to Luxury Listings</h1>
+            <p>Please enter your full name to access our listings:</p>
+            <input type="text" id="guest-name" placeholder="e.g., John Doe" aria-label="Enter your full name">
+            <button onclick="validateName()" id="access-btn">Access Listings</button>
+            <p id="error-message" class="error hidden">Please enter a valid full name (e.g., John Doe).</p>
+        </div>
+    </div>
+
+    <div class="container" id="home-view" class="hidden">
+        <div class="listings-grid">
+            <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
+                <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
+                <div class="listing-info">
+                    <h2>Chateau Plateau</h2>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('paris-house')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('paris-house')">
+                <img src="images/paris-house.jpg" alt="Paris House">
+                <div class="listing-info">
+                    <h2>Paris House</h2>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('chateau-milton')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-milton')">
+                <img src="images/chateau-milton.jpg" alt="Chateau Milton">
+                <div class="listing-info">
+                    <h2>Chateau Milton</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="details" class="details hidden">
+        <button class="back-btn" onclick="goBack()" aria-label="Back to listings">← Back</button>
+        <div class="details-content">
+            <h1 id="house-title"></h1>
+            <div class="gallery" id="gallery">
+                <!-- Pictures added dynamically -->
+            </div>
+            <div class="instructions" id="instructions" aria-live="polite">
+                <p id="booking-confirmation"></p>
+                <p id="checkin-day"></p>
+                <p id="house-rules"></p>
+                <p id="property-access"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+Changes:
+
+Added #landing-view with a name input field, access button, and error message.
+Set #home-view to class="hidden" initially to hide it until validated.
+Kept #details unchanged.
+script.js
+javascript
+
+Collapse
+
+Wrap
+
+Copy
+function validateName() {
+    const nameInput = document.getElementById("guest-name").value.trim();
+    const landingView = document.getElementById("landing-view");
+    const homeView = document.getElementById("home-view");
+    const errorMessage = document.getElementById("error-message");
+
+    // Basic validation: at least two words, min 2 characters each
+    const nameParts = nameInput.split(" ").filter(part => part.length > 0);
+    if (nameParts.length >= 2 && nameParts.every(part => part.length >= 2)) {
+        landingView.classList.add("hidden");
+        homeView.classList.remove("hidden");
+        setTimeout(() => {
+            homeView.classList.add("visible");
+        }, 10);
+    } else {
+        errorMessage.classList.remove("hidden");
+    }
+}
+
+function showDetails(houseId) {
+    const homeView = document.getElementById("home-view");
+    const details = document.getElementById("details");
+    const houseTitle = document.getElementById("house-title");
+    const gallery = document.getElementById("gallery");
+    const bookingConfirmation = document.getElementById("booking-confirmation");
+    const checkinDay = document.getElementById("checkin-day");
+    const houseRules = document.getElementById("house-rules");
+    const propertyAccess = document.getElementById("property-access");
+
+    const listings = {
+        "chateau-plateau": {
+            title: "Chateau Plateau",
+            images: [
+                "images/chateau-plateau.jpg",
+                "images/chateau-plateau-living.jpg"
+            ],
+            bookingConfirmation: "Your booking for Chateau Plateau is confirmed. You will receive a confirmation email with your reservation details shortly.",
+            checkinDay: "Check-in is on April 1, 2025, at 3:00 PM. Please arrive on time to ensure a smooth check-in process.",
+            houseRules: "No smoking, no pets, quiet hours after 10 PM. Please respect the property and neighbors.",
+            propertyAccess: "You will receive a key code via email 24 hours before check-in. Use the code to access the front door lockbox."
+        },
+        "paris-house": {
+            title: "Paris House",
+            images: [
+                "images/paris-house.jpg",
+                "images/paris-house-bedroom.jpg"
+            ],
+            bookingConfirmation: "Your booking for Paris House is confirmed. You will receive a confirmation email with your reservation details shortly.",
+            checkinDay: "Check-in is on April 1, 2025, at 4:00 PM. Please let us know if you’ll be arriving late.",
+            houseRules: "No parties, no loud music, maximum 4 guests. Keep the property clean and tidy.",
+            propertyAccess: "A lockbox code will be provided on the day of check-in. The lockbox is located at the front entrance."
+        },
+        "chateau-milton": {
+            title: "Chateau Milton",
+            images: [
+                "images/chateau-milton.jpg",
+                "images/chateau-milton-exterior.jpg"
+            ],
+            bookingConfirmation: "Your booking for Chateau Milton is confirmed. You will receive a confirmation email with your reservation details shortly.",
+            checkinDay: "Check-in is on April 1, 2025, at 2:00 PM. The host will meet you at the property.",
+            houseRules: "No pets, no outside visitors after 8 PM. Please remove shoes at the entrance.",
+            propertyAccess: "The host will meet you at the property to provide the keys and a brief tour."
+        }
+    };
+
+    if (listings[houseId]) {
+        homeView.classList.remove("visible");
+        homeView.classList.add("hidden");
+
+        houseTitle.textContent = listings[houseId].title;
+
+        gallery.innerHTML = "";
+        listings[houseId].images.forEach(imageSrc => {
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("image-container");
+
+            const img = document.createElement("img");
+            img.classList.add("gallery-image");
+            img.src = imageSrc;
+            img.alt = listings[houseId].title;
+
+            imageContainer.appendChild(img);
+            gallery.appendChild(imageContainer);
+        });
+
+        bookingConfirmation.textContent = listings[houseId].bookingConfirmation;
+        checkinDay.textContent = listings[houseId].checkinDay;
+        houseRules.textContent = listings[houseId].houseRules;
+        propertyAccess.textContent = listings[houseId].propertyAccess;
+
+        details.classList.remove("hidden");
+        setTimeout(() => {
+            details.classList.add("visible");
+        }, 10);
+    } else {
+        console.error(`No listing found for ${houseId}`);
+    }
+}
+
+function goBack() {
+    const homeView = document.getElementById("home-view");
+    const details = document.getElementById("details");
+
+    details.classList.remove("visible");
+    setTimeout(() => {
+        details.classList.add("hidden");
+        homeView.classList.remove("hidden");
+        setTimeout(() => {
+            homeView.classList.add("visible");
+        }, 10);
+    }, 300);
+}
+Changes:
+
+Added validateName() to check the input field and toggle #landing-view to #home-view on valid entry.
+Removed the window.addEventListener("load") for #home-view since it now depends on name validation.
+Kept showDetails and goBack unchanged except for ID-specific selectors.
+styles.css
+css
+
+Collapse
+
+Wrap
+
+Copy
 /* Reset */
 * {
     margin: 0;
@@ -14,9 +233,76 @@ body {
     justify-content: center;
 }
 
+/* Landing View */
+.landing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.landing.hidden {
+    display: none;
+}
+
+.landing-content {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.landing-content h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.landing-content p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#guest-name {
+    padding: 8px;
+    font-size: 16px;
+    width: 200px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#access-btn {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#access-btn:hover,
+#access-btn:focus {
+    background: #0056b3;
+    outline: 2px solid #003087;
+}
+
+.error {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
 /* Home View */
 #home-view {
-    max-width: 1200px;
+    max-width: 90vw;
     width: 100%;
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -33,7 +319,7 @@ body {
 .listings-grid {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 2vw;
     height: 100vh;
     align-items: center;
 }
@@ -43,8 +329,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    width: 280px;
-    height: 320px;
+    width: calc(20vw + 100px); /* Scales with viewport, min 200px */
+    max-width: 400px; /* Cap for very large screens */
+    height: calc(25vh + 100px); /* Scales with viewport, min 200px */
+    max-height: 500px; /* Cap for very large screens */
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease;
@@ -58,7 +346,7 @@ body {
 
 .listing-card img {
     width: 100%;
-    height: 180px;
+    height: 60%; /* Proportional to card height */
     object-fit: cover;
     border-radius: 8px 8px 0 0;
 }
@@ -73,7 +361,7 @@ body {
 }
 
 .listing-info h2 {
-    font-size: 18px;
+    font-size: calc(1vw + 12px); /* Scales with viewport, min 16px */
     margin: 0;
 }
 
@@ -147,8 +435,10 @@ body {
 }
 
 .gallery-image {
-    width: 250px;
-    height: 150px;
+    width: calc(15vw + 100px); /* Scales with viewport */
+    max-width: 300px;
+    height: calc(10vh + 50px); /* Scales with viewport */
+    max-height: 200px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -174,13 +464,14 @@ body {
     }
 
     .listing-card {
-        width: 100%;
-        max-width: 280px;
-        height: 300px;
+        width: 80vw;
+        height: 40vh;
+        max-width: 350px;
+        max-height: 400px;
     }
 
-    .listing-card img {
-        height: 160px;
+    .listing-info h2 {
+        font-size: 18px;
     }
 
     .gallery {
@@ -189,8 +480,9 @@ body {
     }
 
     .gallery-image {
-        width: 100%;
+        width: 70vw;
         max-width: 250px;
-        height: 140px;
+        height: 20vh;
+        max-height: 150px;
     }
 }
