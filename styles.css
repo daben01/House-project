@@ -1,8 +1,19 @@
+styles.css
+No significant changes needed for security, but I’ll add a small tweak to disable text selection (further deterrence):
+
+css
+
+Collapse
+
+Wrap
+
+Copy
 /* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none; /* Disable text selection */
 }
 
 body {
@@ -165,15 +176,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Prevent text overflow */
+    overflow: hidden;
 }
 
 .listing-info h2 {
     font-size: calc(1vw + 12px);
     margin: 0;
-    white-space: nowrap; /* Prevent wrapping */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis if text is too long */
+    text-overflow: ellipsis;
 }
 
 /* Details View */
@@ -263,7 +274,7 @@ body {
     font-size: 14px;
     color: #333;
     margin: 8px 0;
-    word-wrap: break-word; /* Ensure long text wraps */
+    word-wrap: break-word;
 }
 
 /* Responsive Design */
@@ -282,7 +293,7 @@ body {
     }
 
     .listing-info h2 {
-        font-size: 16px; /* Smaller font on mobile */
+        font-size: 16px;
     }
 
     .gallery {
@@ -298,6 +309,6 @@ body {
     }
 
     .instructions p {
-        font-size: 12px; /* Smaller text on mobile */
+        font-size: 12px;
     }
 }
