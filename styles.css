@@ -59,3 +59,10 @@
     color: #cccccc;
     margin: 5px 0 0 0;
 }
+.house-description,
+.house-location,
+.house-citq {
+    font-size: 14px;
+    color: #cccccc;
+    margin: 5px 0;
+}
