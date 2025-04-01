@@ -50,3 +50,12 @@
         font-size: 14px;
     }
 }
+.image-container {
+    text-align: center;
+}
+
+.gallery-caption {
+    font-size: 14px;
+    color: #cccccc;
+    margin: 5px 0 0 0;
+}
