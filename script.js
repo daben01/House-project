@@ -1,3 +1,22 @@
+function validateName() {
+    const nameInput = document.getElementById("guest-name").value.trim();
+    const landingView = document.getElementById("landing-view");
+    const homeView = document.getElementById("home-view");
+    const errorMessage = document.getElementById("error-message");
+
+    // Basic validation: at least two words, min 2 characters each
+    const nameParts = nameInput.split(" ").filter(part => part.length > 0);
+    if (nameParts.length >= 2 && nameParts.every(part => part.length >= 2)) {
+        landingView.classList.add("hidden");
+        homeView.classList.remove("hidden");
+        setTimeout(() => {
+            homeView.classList.add("visible");
+        }, 10);
+    } else {
+        errorMessage.classList.remove("hidden");
+    }
+}
+
 function showDetails(houseId) {
     const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
@@ -45,14 +64,11 @@ function showDetails(houseId) {
     };
 
     if (listings[houseId]) {
-        // Hide home view
         homeView.classList.remove("visible");
         homeView.classList.add("hidden");
 
-        // Set house title
         houseTitle.textContent = listings[houseId].title;
 
-        // Clear and populate gallery
         gallery.innerHTML = "";
         listings[houseId].images.forEach(imageSrc => {
             const imageContainer = document.createElement("div");
@@ -67,17 +83,15 @@ function showDetails(houseId) {
             gallery.appendChild(imageContainer);
         });
 
-        // Set instructions
         bookingConfirmation.textContent = listings[houseId].bookingConfirmation;
         checkinDay.textContent = listings[houseId].checkinDay;
         houseRules.textContent = listings[houseId].houseRules;
         propertyAccess.textContent = listings[houseId].propertyAccess;
 
-        // Show details view
         details.classList.remove("hidden");
         setTimeout(() => {
             details.classList.add("visible");
-        }, 10); // Trigger transition
+        }, 10);
     } else {
         console.error(`No listing found for ${houseId}`);
     }
@@ -87,24 +101,12 @@ function goBack() {
     const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
 
-    // Hide details view
     details.classList.remove("visible");
     setTimeout(() => {
         details.classList.add("hidden");
-        // Show home view
         homeView.classList.remove("hidden");
         setTimeout(() => {
             homeView.classList.add("visible");
         }, 10);
-    }, 300); // Match transition duration
+    }, 300);
 }
-
-// Fade in on page load
-window.addEventListener("load", () => {
-    const homeView = document.getElementById("home-view");
-    homeView.classList.add("hidden"); // Ensure initial state
-    setTimeout(() => {
-        homeView.classList.remove("hidden");
-        homeView.classList.add("visible");
-    }, 10);
-});
