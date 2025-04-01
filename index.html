@@ -8,7 +8,17 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="container" id="home-view">
+    <div class="landing" id="landing-view">
+        <div class="landing-content">
+            <h1>Welcome to Luxury Listings</h1>
+            <p>Please enter your full name to access our listings:</p>
+            <input type="text" id="guest-name" placeholder="e.g., John Doe" aria-label="Enter your full name">
+            <button onclick="validateName()" id="access-btn">Access Listings</button>
+            <p id="error-message" class="error hidden">Please enter a valid full name (e.g., John Doe).</p>
+        </div>
+    </div>
+
+    <div class="container" id="home-view" class="hidden">
         <div class="listings-grid">
             <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
                 <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
