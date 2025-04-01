@@ -8,7 +8,7 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="home-view">
         <h1>Your listings</h1>
         <div class="listings-grid">
             <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
@@ -36,30 +36,36 @@
     </div>
 
     <div id="details" class="details hidden">
-        <button class="close-btn" onclick="closeDetails()" aria-label="Close details modal">×</button>
+        <button class="back-btn" onclick="goBack()" aria-label="Back to listings">← Back</button>
         <div class="details-content">
             <h1 id="house-title"></h1>
+            <p class="house-description"></p>
+            <p class="house-location"></p>
+            <p class="house-citq"></p>
             <div class="gallery">
                 <!-- Pictures will be added dynamically by script.js -->
             </div>
-            <h2>Booking Confirmation</h2>
-            <p id="booking-confirmation" contenteditable="true">[Booking confirmation text will be added later]</p>
-            <h2>Check-in Day</h2>
-            <p id="checkin-day" contenteditable="true">[Check-in day text will be added later]</p>
-            <h2>House Rules</h2>
-            <p id="house-rules" contenteditable="true">[House rules text will be added later]</p>
-            <h2>Property Access</h2>
-            <p id="property-access" contenteditable="true">[Property access text will be added later]</p>
+            <h2>Instructions</h2>
+            <div class="instructions" aria-live="polite">
+                <h3>Booking Confirmation</h3>
+                <p id="booking-confirmation">[Booking confirmation text will be added later]</p>
+                <h3>Check-in Day</h3>
+                <p id="checkin-day">[Check-in day text will be added later]</p>
+                <h3>House Rules</h3>
+                <p id="house-rules">[House rules text will be added later]</p>
+                <h3>Property Access</h3>
+                <p id="property-access">[Property access text will be added later]</p>
+            </div>
         </div>
     </div>
 
     <div id="fullscreen" class="fullscreen hidden">
         <button class="close-btn" onclick="closeFullscreen()" aria-label="Close fullscreen modal">×</button>
         <div class="fullscreen-content">
-            <button class="fullscreen-btn prev-btn" onclick="changeFullscreenImage(-1)">◄</button>
+            <button class="fullscreen-btn prev-btn" onclick="changeFullscreenImage(-1)" aria-label="Previous image">◄</button>
             <img id="fullscreen-image" class="fullscreen-image" src="" alt="">
             <p id="fullscreen-caption" class="fullscreen-caption"></p>
-            <button class="fullscreen-btn next-btn" onclick="changeFullscreenImage(1)">►</button>
+            <button class="fullscreen-btn next-btn" onclick="changeFullscreenImage(1)" aria-label="Next image">►</button>
         </div>
     </div>
 </body>
