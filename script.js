@@ -2,7 +2,7 @@ function showDetails(houseId) {
     const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
     const houseTitle = document.getElementById("house-title");
-    const gallery = document.querySelector(".gallery");
+    const gallery = document.getElementById("gallery");
     const bookingConfirmation = document.getElementById("booking-confirmation");
     const checkinDay = document.getElementById("checkin-day");
     const houseRules = document.getElementById("house-rules");
@@ -52,10 +52,8 @@ function showDetails(houseId) {
         // Set house title
         houseTitle.textContent = listings[houseId].title;
 
-        // Clear gallery
+        // Clear and populate gallery
         gallery.innerHTML = "";
-
-        // Add 2 images
         listings[houseId].images.forEach(imageSrc => {
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("image-container");
@@ -98,14 +96,15 @@ function goBack() {
         setTimeout(() => {
             homeView.classList.add("visible");
         }, 10);
-    }, 300); // Match CSS transition duration
+    }, 300); // Match transition duration
 }
 
 // Fade in on page load
-window -webkit-animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+window.addEventListener("load", () => {
+    const homeView = document.getElementById("home-view");
+    homeView.classList.add("hidden"); // Ensure initial state
+    setTimeout(() => {
+        homeView.classList.remove("hidden");
+        homeView.classList.add("visible");
+    }, 10);
+});
