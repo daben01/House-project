@@ -1,4 +1,5 @@
 function showDetails(houseId) {
+    const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
     const houseTitle = document.getElementById("house-title");
     const gallery = document.querySelector(".gallery");
@@ -15,13 +16,11 @@ function showDetails(houseId) {
             citq: "CITQ#297014",
             images: [
                 "images/chateau-plateau.jpg",
-                "images/chateau-plateau-living.jpg",
-                "images/chateau-plateau-kitchen.jpg"
+                "images/chateau-plateau-living.jpg"
             ],
             captions: [
                 "Exterior View",
-                "Living Room",
-                "Kitchen"
+                "Living Room"
             ],
             bookingConfirmation: "Your booking for Chateau Plateau is confirmed. You will receive a confirmation email with your reservation details shortly.",
             checkinDay: "Check-in is on April 1, 2025, at 3:00 PM. Please arrive on time to ensure a smooth check-in process.",
@@ -35,13 +34,11 @@ function showDetails(houseId) {
             citq: "CITQ#297014",
             images: [
                 "images/paris-house.jpg",
-                "images/paris-house-bedroom.jpg",
-                "images/paris-house-dining.jpg"
+                "images/paris-house-bedroom.jpg"
             ],
             captions: [
                 "Exterior View",
-                "Bedroom",
-                "Dining Room"
+                "Bedroom"
             ],
             bookingConfirmation: "Your booking for Paris House is confirmed. You will receive a confirmation email with your reservation details shortly.",
             checkinDay: "Check-in is on April 1, 2025, at 4:00 PM. Please let us know if you’ll be arriving late.",
@@ -55,13 +52,11 @@ function showDetails(houseId) {
             citq: "CITQ#301085",
             images: [
                 "images/chateau-milton.jpg",
-                "images/chateau-milton-exterior.jpg",
-                "images/chateau-milton-bathroom.jpg"
+                "images/chateau-milton-exterior.jpg"
             ],
             captions: [
                 "Exterior View",
-                "Side Exterior",
-                "Kitchen"
+                "Side Exterior"
             ],
             bookingConfirmation: "Your booking for Chateau Milton is confirmed. You will receive a confirmation email with your reservation details shortly.",
             checkinDay: "Check-in is on April 1, 2025, at 2:00 PM. The host will meet you at the property.",
@@ -71,123 +66,75 @@ function showDetails(houseId) {
     };
 
     if (listings[houseId]) {
+        // Hide the home view
+        homeView.classList.add("hidden");
+
         // Set the house title
         houseTitle.textContent = listings[houseId].title;
 
         // Clear the gallery
         gallery.innerHTML = "";
 
-        // Create a container for the image and caption
-        const imageContainer = document.createElement("div");
-        imageContainer.classList.add("image-container");
+        // Create a simple gallery with 2 images
+        listings[houseId].images.forEach((imageSrc, index) => {
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("image-container");
 
-        // Create the gallery structure with a single image
-        const img = document.createElement("img");
-        img.classList.add("gallery-image");
-        img.id = "current-image";
-        img.src = listings[houseId].images[0];
-        img.alt = listings[houseId].title + " - Image 1";
-        img.onclick = () => openFullscreen(houseId, 0);
+            const img = document.createElement("img");
+            img.classList.add("gallery-image");
+            img.src = imageSrc;
+            img.alt = `${listings[houseId].title} - ${listings[houseId].captions[index]}`;
+            img.onclick = () => openFullscreen(houseId, index);
 
-        // Create the caption element
-        const caption = document.createElement("p");
-        caption.classList.add("gallery-caption");
-        caption.id = "current-caption";
-        caption.textContent = listings[houseId].captions[0];
+            const caption = document.createElement("p");
+            caption.classList.add("gallery-caption");
+            caption.textContent = listings[houseId].captions[index];
 
-        // Add image and caption to the container
-        imageContainer.appendChild(img);
-        imageContainer.appendChild(caption);
+            imageContainer.appendChild(img);
+            imageContainer.appendChild(caption);
+            gallery.appendChild(imageContainer);
+        });
 
-        // Create navigation buttons
-        const prevBtn = document.createElement("button");
-        prevBtn.classList.add("gallery-btn", "prev-btn");
-        prevBtn.textContent = "◄";
-        prevBtn.onclick = () => changeImage(houseId, -1);
-
-        const nextBtn = document.createElement("button");
-        nextBtn.classList.add("gallery-btn", "next-btn");
-        nextBtn.textContent = "►";
-        nextBtn.onclick = () => changeImage(houseId, 1);
-
-        gallery.appendChild(prevBtn);
-        gallery.appendChild(imageContainer);
-        gallery.appendChild(nextBtn);
-
-        // Store the current image index and images array in the gallery for navigation
-        gallery.dataset.currentIndex = 0;
-        gallery.dataset.images = JSON.stringify(listings[houseId].images);
-        gallery.dataset.captions = JSON.stringify(listings[houseId].captions);
-        gallery.dataset.title = listings[houseId].title;
-
-        // Set the text for each section, including the new details
+        // Set the instructions
         bookingConfirmation.textContent = listings[houseId].bookingConfirmation;
         checkinDay.textContent = listings[houseId].checkinDay;
         houseRules.textContent = listings[houseId].houseRules;
         propertyAccess.textContent = listings[houseId].propertyAccess;
 
-        // Add the description, location, and CITQ number to the modal
-        const description = document.createElement("p");
-        description.classList.add("house-description");
+        // Add description, location, and CITQ
+        const description = document.querySelector(".house-description");
+        const location = document.querySelector(".house-location");
+        const citq = document.querySelector(".house-citq");
         description.textContent = listings[houseId].description;
-
-        const location = document.createElement("p");
-        location.classList.add("hous-location");
         location.textContent = listings[houseId].location;
-
-        const citq = document.createElement("p");
-        citq.classList.add("house-citq");
         citq.textContent = listings[houseId].citq;
 
-        // Insert the new details just below the house title
-        houseTitle.insertAdjacentElement("afterend", description);
-        description.insertAdjacentElement("afterend", location);
-        location.insertAdjacentElement("afterend", citq);
+        // Store images and captions for fullscreen
+        gallery.dataset.images = JSON.stringify(listings[houseId].images);
+        gallery.dataset.captions = JSON.stringify(listings[houseId].captions);
+        gallery.dataset.title = listings[houseId].title;
 
-        // Show the modal with a transition
+        // Show the details view
         details.classList.remove("hidden");
         details.classList.add("visible");
+    } else {
+        console.error(`No listing found for ${houseId}`);
     }
 }
 
-function changeImage(houseId, direction) {
-    const gallery = document.querySelector(".gallery");
-    const currentImage = document.getElementById("current-image");
-    const currentCaption = document.getElementById("current-caption");
-    let currentIndex = parseInt(gallery.dataset.currentIndex);
-    const images = JSON.parse(gallery.dataset.images);
-    const captions = JSON.parse(gallery.dataset.captions);
-    const title = gallery.dataset.title;
-
-    currentIndex += direction;
-
-    // Loop around if at the start or end
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-
-    // Update the image and caption
-    currentImage.src = images[currentIndex];
-    currentImage.alt = title + " - Image " + (currentIndex + 1);
-    currentCaption.textContent = captions[currentIndex];
-    gallery.dataset.currentIndex = currentIndex;
-}
-
-function closeDetails() {
+function goBack() {
+    const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
+
+    // Show the home view
+    homeView.classList.remove("hidden");
+
+    // Hide the details view
     details.classList.remove("visible");
     details.classList.add("hidden");
-
-    // Remove the dynamically added description, location, and CITQ elements
-    const description = document.querySelector(".house-description");
-    const location = document.querySelector(".house-location");
-    const citq = document.querySelector(".house-citq");
-    if (description) description.remove();
-    if (location) location.remove();
-    if (citq) citq.remove();
 }
 
 function openFullscreen(houseId, index) {
-    console.log(`Opening fullscreen for ${houseId} at index ${index}`);
     const fullscreen = document.getElementById("fullscreen");
     const fullscreenImage = document.getElementById("fullscreen-image");
     const fullscreenCaption = document.getElementById("fullscreen-caption");
