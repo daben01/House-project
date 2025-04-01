@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Listings</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="landing" id="landing-view">
+        <div class="landing-content">
+            <h1>Welcome to Luxury Listings</h1>
+            <p>Please enter your full name to access our listings:</p>
+            <input type="text" id="guest-name" placeholder="e.g., John Doe" aria-label="Enter your full name">
+            <button onclick="validateName()" id="access-btn">Access Listings</button>
+            <p id="error-message" class="error hidden">Please enter a valid full name (e.g., John Doe).</p>
+        </div>
+    </div>
 
+    <div class="container" id="home-view" class="hidden">
+        <div class="listings-grid">
+            <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
+                <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
+                <div class="listing-info">
+                    <h2>Chateau Plateau</h2>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('paris-house')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('paris-house')">
+                <img src="images/paris-house.jpg" alt="Paris House">
+                <div class="listing-info">
+                    <h2>Paris House</h2>
+                </div>
+            </div>
+            <div class="listing-card" onclick="showDetails('chateau-milton')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-milton')">
+                <img src="images/chateau-milton.jpg" alt="Chateau Milton">
+                <div class="listing-info">
+                    <h2>Chateau Milton</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="details" class="details hidden">
+        <button class="back-btn" onclick="goBack()" aria-label="Back to listings">← Back</button>
+        <div class="details-content">
+            <h1 id="house-title"></h1>
+            <div class="gallery" id="gallery">
+                <!-- Pictures added dynamically -->
+            </div>
+            <div class="instructions" id="instructions" aria-live="polite">
+                <p id="booking-confirmation"></p>
+                <p id="checkin-day"></p>
+                <p id="house-rules"></p>
+                <p id="property-access"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
