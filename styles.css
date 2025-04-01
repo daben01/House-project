@@ -19,7 +19,15 @@ body {
     max-width: 1200px;
     width: 100%;
     opacity: 0;
-    animation: fadeIn 1s forwards;
+    transition: opacity 0.5s ease;
+}
+
+#home-view.visible {
+    opacity: 1;
+}
+
+#home-view.hidden {
+    display: none;
 }
 
 .listings-grid {
@@ -185,10 +193,4 @@ body {
         max-width: 250px;
         height: 140px;
     }
-}
-
-/* Animation Keyframes */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
