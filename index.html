@@ -13,32 +13,23 @@
         <div class="listings-grid">
             <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
                 <span class="status">● Listed</span>
-                <img src="images/chateau-plateau.jpg" alt="Exterior view of Chateau Plateau in downtown Montreal">
+                <img src="images/chateau-plateau.jpg" alt="Exterior view of Chateau Plateau">
                 <div class="listing-info">
-                    <h2>Heart of downtown Montreal + parking</h2>
-                    <p>Chateau Plateau</p>
-                    <p>Montréal, Québec</p>
-                    <p>CITQ#297014</p>
+                    <h2>Chateau Plateau</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('paris-house')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('paris-house')">
                 <span class="status">● Listed</span>
-                <img src="images/paris-house.jpg" alt="Exterior view of Paris House near Bell Center">
+                <img src="images/paris-house.jpg" alt="Exterior view of Paris House">
                 <div class="listing-info">
-                    <h2>Step away from downtown Bell Center</h2>
-                    <p>Paris House</p>
-                    <p>Montréal, Québec</p>
-                    <p>CITQ#297014</p>
+                    <h2>Paris House</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('chateau-milton')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-milton')">
                 <span class="status">● Listed</span>
-                <img src="images/chateau-milton.jpg" alt="Exterior view of Chateau Milton, a Victorian house">
+                <img src="images/chateau-milton.jpg" alt="Exterior view of Chateau Milton">
                 <div class="listing-info">
-                    <h2>Victorian house, heart of downtown</h2>
-                    <p>Chateau Milton</p>
-                    <p>Montréal, Québec</p>
-                    <p>CITQ#301085</p>
+                    <h2>Chateau Milton</h2>
                 </div>
             </div>
         </div>
@@ -59,6 +50,16 @@
             <p id="house-rules" contenteditable="true">[House rules text will be added later]</p>
             <h2>Property Access</h2>
             <p id="property-access" contenteditable="true">[Property access text will be added later]</p>
+        </div>
+    </div>
+
+    <div id="fullscreen" class="fullscreen hidden">
+        <button class="close-btn" onclick="closeFullscreen()" aria-label="Close fullscreen modal">×</button>
+        <div class="fullscreen-content">
+            <button class="fullscreen-btn prev-btn" onclick="changeFullscreenImage(-1)">◄</button>
+            <img id="fullscreen-image" class="fullscreen-image" src="" alt="">
+            <p id="fullscreen-caption" class="fullscreen-caption"></p>
+            <button class="fullscreen-btn next-btn" onclick="changeFullscreenImage(1)">►</button>
         </div>
     </div>
 </body>
