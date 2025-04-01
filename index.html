@@ -11,21 +11,18 @@
     <div class="container" id="home-view">
         <div class="listings-grid">
             <div class="listing-card" onclick="showDetails('chateau-plateau')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-plateau')">
-                <span class="status">● Listed</span>
                 <img src="images/chateau-plateau.jpg" alt="Chateau Plateau">
                 <div class="listing-info">
                     <h2>Chateau Plateau</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('paris-house')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('paris-house')">
-                <span class="status">● Listed</span>
                 <img src="images/paris-house.jpg" alt="Paris House">
                 <div class="listing-info">
                     <h2>Paris House</h2>
                 </div>
             </div>
             <div class="listing-card" onclick="showDetails('chateau-milton')" tabindex="0" onkeypress="if(event.key === 'Enter') showDetails('chateau-milton')">
-                <span class="status">● Listed</span>
                 <img src="images/chateau-milton.jpg" alt="Chateau Milton">
                 <div class="listing-info">
                     <h2>Chateau Milton</h2>
@@ -39,7 +36,7 @@
         <div class="details-content">
             <h1 id="house-title"></h1>
             <div class="gallery">
-                <!-- Pictures will be added dynamically by script.js -->
+                <!-- Pictures added dynamically -->
             </div>
             <div class="instructions" aria-live="polite">
                 <p id="booking-confirmation"></p>
@@ -47,15 +44,6 @@
                 <p id="house-rules"></p>
                 <p id="property-access"></p>
             </div>
-        </div>
-    </div>
-
-    <div id="fullscreen" class="fullscreen hidden">
-        <button class="close-btn" onclick="closeFullscreen()" aria-label="Close fullscreen image">×</button>
-        <div class="fullscreen-content">
-            <button class="fullscreen-btn prev-btn" onclick="changeFullscreenImage(-1)" aria-label="Previous image">◄</button>
-            <img id="fullscreen-image" class="fullscreen-image" src="" alt="">
-            <button class="fullscreen-btn next-btn" onclick="changeFullscreenImage(1)" aria-label="Next image">►</button>
         </div>
     </div>
 </body>
