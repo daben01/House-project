@@ -45,18 +45,18 @@ function showDetails(houseId) {
     };
 
     if (listings[houseId]) {
-        // Hide the home view
-        homeView.classList.add("hidden");
+        // Hide home view
         homeView.classList.remove("visible");
+        homeView.classList.add("hidden");
 
-        // Set the house title
+        // Set house title
         houseTitle.textContent = listings[houseId].title;
 
-        // Clear the gallery
+        // Clear gallery
         gallery.innerHTML = "";
 
-        // Create a simple gallery with 2 images
-        listings[houseId].images.forEach((imageSrc, index) => {
+        // Add 2 images
+        listings[houseId].images.forEach(imageSrc => {
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("image-container");
 
@@ -64,27 +64,22 @@ function showDetails(houseId) {
             img.classList.add("gallery-image");
             img.src = imageSrc;
             img.alt = listings[houseId].title;
-            img.onclick = () => openFullscreen(houseId, index);
 
             imageContainer.appendChild(img);
             gallery.appendChild(imageContainer);
         });
 
-        // Set the instructions
+        // Set instructions
         bookingConfirmation.textContent = listings[houseId].bookingConfirmation;
         checkinDay.textContent = listings[houseId].checkinDay;
         houseRules.textContent = listings[houseId].houseRules;
         propertyAccess.textContent = listings[houseId].propertyAccess;
 
-        // Store images for fullscreen
-        gallery.dataset.images = JSON.stringify(listings[houseId].images);
-        gallery.dataset.title = listings[houseId].title;
-
-        // Show the details view with animation
+        // Show details view
         details.classList.remove("hidden");
         setTimeout(() => {
             details.classList.add("visible");
-        }, 10); // Small delay to trigger transition
+        }, 10); // Trigger transition
     } else {
         console.error(`No listing found for ${houseId}`);
     }
@@ -94,68 +89,23 @@ function goBack() {
     const homeView = document.getElementById("home-view");
     const details = document.getElementById("details");
 
-    // Hide the details view
+    // Hide details view
     details.classList.remove("visible");
     setTimeout(() => {
         details.classList.add("hidden");
-        // Show the home view
+        // Show home view
         homeView.classList.remove("hidden");
         setTimeout(() => {
             homeView.classList.add("visible");
-        }, 10); // Small delay to trigger transition
+        }, 10);
     }, 300); // Match CSS transition duration
 }
 
-function openFullscreen(houseId, index) {
-    const fullscreen = document.getElementById("fullscreen");
-    const fullscreenImage = document.getElementById("fullscreen-image");
-    const gallery = document.querySelector(".gallery");
-    const images = JSON.parse(gallery.dataset.images);
-    const title = gallery.dataset.title;
-
-    fullscreenImage.src = images[index];
-    fullscreenImage.alt = title;
-    fullscreen.dataset.currentIndex = index;
-    fullscreen.dataset.images = JSON.stringify(images);
-    fullscreen.dataset.title = title;
-
-    fullscreen.classList.remove("hidden");
-    setTimeout(() => {
-        fullscreen.classList.add("visible");
-    }, 10);
+// Fade in on page load
+window -webkit-animation: fadeIn 1s;
 }
 
-function changeFullscreenImage(direction) {
-    const fullscreen = document.getElementById("fullscreen");
-    const fullscreenImage = document.getElementById("fullscreen-image");
-    let currentIndex = parseInt(fullscreen.dataset.currentIndex);
-    const images = JSON.parse(fullscreen.dataset.images);
-    const title = fullscreen.dataset.title;
-
-    currentIndex += direction;
-
-    // Loop around if at the start or end
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-
-    // Update the image
-    fullscreenImage.src = images[currentIndex];
-    fullscreenImage.alt = title;
-    fullscreen.dataset.currentIndex = currentIndex;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-
-function closeFullscreen() {
-    const fullscreen = document.getElementById("fullscreen");
-    fullscreen.classList.remove("visible");
-    setTimeout(() => {
-        fullscreen.classList.add("hidden");
-    }, 300);
-}
-
-// Trigger initial fade-in animation on page load
-window.addEventListener("load", () => {
-    const homeView = document.getElementById("home-view");
-    setTimeout(() => {
-        homeView.classList.add("visible");
-    }, 10);
-});
